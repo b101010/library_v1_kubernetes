@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  flask:
+    image: balazs101010/flask:latest
+    container_name: flask
+    restart: always
+    expose: 
+      - 5000
+    networks:
+      - my-network
+
+  nginx:
+    image: balazs101010/nginx:latest
+    container_name: nginx
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - my-network
+    depends_on:
+      - flask
+
+  mysql:
+    image: balazs101010/mysql:latest
+    container_name: mysql
+    restart: always
+    expose:
+      - 3306
+    networks:
+      - my-network
+    depends_on:
+      - flask    
+
+networks:
+  my-network:        
+
